@@ -1,0 +1,17 @@
+Go back one step and define the problem:
+
+o Inputs
+o Outputs
+o Constraints
+
+log,b(m*n) = log,b(m) + log,b(n)
+
+log,b(m/n) = log,b(m) - log,b(n)
+
+log,b(m^n) = n * log,b(m)
+
+log,b(x) = log,d(x)
+           -------
+           log,d(b)
+
+x^n = x^a+b = x^a * x^b
