@@ -2,8 +2,8 @@
 /* From 'Programming Pearls' by Jon Bentley */
 
 /* squash.c -- print anagram classes on a single line
-    The input lines "opst pots" and "opst stop" go to "pots stop"
- */
+   The input lines "opst pots" and "opst stop" go to "pots stop"
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,8 @@
 #define WORDMAX 100
 
 int main()
-{   char word[WORDMAX], sig[WORDMAX], oldsig[WORDMAX];
+{
+    char word[WORDMAX], sig[WORDMAX], oldsig[WORDMAX];
     int linenum = 0;
     strcpy(oldsig, "");
     while (scanf("%s %s", sig, word) != EOF) {

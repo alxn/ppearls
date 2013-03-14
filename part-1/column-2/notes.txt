@@ -1,0 +1,110 @@
+Number of permutations:
+
+for a given n
+
+n * (n-1) * (n-2) .... 1
+= n!
+
+nPr = n! / (n-r)!
+
+      i.e. 
+
+      n * n-1 * n-2 * r+1
+
+nCr = n! / (r!(n-r)!)
+
+
+The juggle rotate works like so:
+
+For r=1, it's obvious that we store the first value in a temp, and move the
+values into the dst, until we get all the way back around, i.e.:
+
+
+i = 0;
+t = [i]
+
+while (0 != ((i++)%n) {
+  [i-1] = [i];
+}
+[i-1] = t;
+
+Since otherwise we'd run for ever, and keep shifting forever (this is an algo
+for r>1).
+
+But, since we can move from cur location to desired in one go, we do so until
+we get to the end, where 
+
+
+It helps to think as a infinitely repeating array (%n)
+
+r=4,n=6
+
+t=0
+? 1 2 3 4 5
+ ^ ^ ^ ^
+4 1 2 3 ? 5 4 1 2 3 ? 5
+         ^ ^ ^ ^
+4 1 ? 3 2 5 4 1 ? 3 2 5 4 1 ? 3 2 5
+                 ^ ^ ^ ^
+                        Back to start, so are done.
+4 1 0 3 2 5
+
+Next char:
+t=1
+4 ? 0 3 2 5
+   ^ ^ ^ ^
+4 5 0 3 2 ? 4 5 0 3 2 ?
+           ^ ^ ^ ^
+4 5 0 ? 2 3 4 5 0 ? 2 3 4 5 0 ? 2 3
+                   ^ ^ ^ ^
+                        Back to start, so are done.
+4 5 0 1 2 3
+
+i.e. keep going till back where we started. But the question is did we visit
+every element?
+
+Want number of exchanges to be "n"
+
+For r=1, we do n exchanges.
+
+But, if we are back where we started, and we didn't do n exchanges, then we
+need to start at the next place.
+
+How many will we do in total then?
+
+If we ended up back where we started, but did less than n, we know that we
+have:
+
+  x * y exchanges == n
+
+Now if n % r = 0, i.e. no remainder, the answer is:
+
+ r * n/r exchanges = n
+
+e.g. (5,10) = 5 * 2 = 10
+
+However, using modulo mathematics:
+
+(6,10)
+
+0+6 % 10 = 6
+6+6 % 10 = 2
+2+6 % 10 = 8
+8+6 % 10 = 4
+4+6 % 10 = 0 <- start
+
+1+6 ...
+
+ 6       10
+--- and ----
+ ?        ?
+
+The question is really what can I fit into r, that I can also fit into n?
+
+gcd(6,10) = 2.
+10 / 2 = 5
+
+ 6     10
+--    ---- = 5
+ 2      2
+

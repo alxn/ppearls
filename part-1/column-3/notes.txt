@@ -1,0 +1,125 @@
+Don't write a big program when a little one will do.
+
+Perfection is when there is nothing left to remove.
+
+Data driven design?
+- by input data?
+- by output data?
+
+
+Like Perl Formats or i18n support in C.
+
+http://perldoc.perl.org/perlform.html
+
+%<pos>$<format>
+
+Given a day of year and year => Month day of Month
+
+e.g.
+61st 2004 => 1st day of 2rd Month.
+
+
+Leap year if perfectly divisible by four
+Except: years divisible by 100 and not divisible by 400
+=> truth table
+
+bool is_leap_year(int y)
+{
+    return (
+
+!(y % 4)
+&& (!(y%100) && (y%400))
+
+}
+
+
+--------------------------------------------------------------------------------
+
+Banner:
+
+########
+   ##
+   ##
+   ##
+########
+
+ROWS=7 (needs to be odd for middle lines?
+
+Display is 8 wide by 7 tall
+
+Encoded as a byte here we have:
+
+ 11111111
+ 00011000 
+ 00011000 
+ 00011000 
+ 00011000 
+ 00011000 
+ 11111111
+
+E
+
+ 11111111
+ 11000000
+ 11000000
+ 11111111
+ 11000000
+ 11000000
+ 11111111
+
+B
+
+
+ 11111100
+ 11000011
+ 11000011
+ 11111100
+ 11000011
+ 11000011
+ 11111100
+
+Could have:
+
+ uint8_t alphabet[NCHARS][NROWS] = {
+   { 0xff, 0xff, etc }, // A
+   { 0xff, 0xff, etc }, // B
+ }
+
+But this means we get bad cache align, really want to write:
+
+
+  for (r=0;r<NROWS;r++) {
+    print_row(alphabet[r], word);
+    printf(\n);
+
+print_row (uint8_t *display, char *word) {
+
+    size_t len = strlen(word);
+    int i, b;
+    // for each letter in word
+    for (i=0; i<len; i++) {
+        // for each char in letter (bit in 8 bit)
+        for (b=0; b<8; b++) {
+            printf("%c", (display[word[i]] & 1<<b) ? '#' : ' ';
+        }
+        printf(" ");
+    }
+}
+
+Decimal and hex modes
+
+   2
+ 3 1 4
+ 5 0 6
+
+Display 16-bit +ive in five seven segment digits.
+
+Like so:
+ _
+|_|
+|_|
+
+Output is an array of five bytes, bit i of byte j is one iff i-th segment of
+digit j is on (mem-mapped I/O).
+
+

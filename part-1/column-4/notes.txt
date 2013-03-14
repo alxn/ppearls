@@ -1,0 +1,8 @@
+1) Problem Definition
+2) Algorithm Design
+3) Data Structure Selection
+
+
+Does sorted array x[0..n-1] contain t ?
+Answer stored in p (-1 == not found) where x[p] == t
+
